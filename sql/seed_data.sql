@@ -1,0 +1,1 @@
+INSERT INTO pessoas ("idPessoa", "nome", "cpf", "dataNascimento") VALUES (default, 'João da Silva', '14628320918', '1988-06-15');
