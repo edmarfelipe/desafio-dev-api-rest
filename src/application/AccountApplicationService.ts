@@ -70,8 +70,6 @@ export class AccountApplicationService implements IAccountApplicationService {
 
     value = value > 0 ? value * -1 : value;
 
-    console.log(value);
-
     await this.transactionRepository.save(
       new Transaction(account.idConta, value),
     );

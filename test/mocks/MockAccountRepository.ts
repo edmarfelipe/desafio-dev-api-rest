@@ -8,7 +8,9 @@ export class MockAccountRepository implements IAccountRepository {
     this._users = [];
 
     const account = new Account(1);
-    account.saldo = 0;
+    account.idConta = 1;
+    account.saldo = 1000;
+
     this._users.push(account);
   }
 

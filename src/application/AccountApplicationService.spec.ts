@@ -41,6 +41,23 @@ describe('Given the balance is 1.000', () => {
     expect(account.isFailure).toBeTruthy();
   });
 
+  it('Should not be allowed to deposit to a blocked account', async () => {
+    await accountAppService.block(1);
+    const account = await accountAppService.deposit(1, 1000);
+    expect(account.isFailure).toBeTruthy();
+
+    const persistedAccount = await accountRepository.get(1);
+    expect(persistedAccount?.saldo).toBe(1000);
+  });
+
+  it('Should not be allowed to withdraw when you do not have a balance', async () => {
+    const account = await accountAppService.withdraw(1, 1100);
+    expect(account.isFailure).toBeTruthy();
+
+    const persistedAccount = await accountRepository.get(1);
+    expect(persistedAccount?.saldo).toBe(1000);
+  });
+
   it('Should make a withdrawal there is an account', async () => {
     const account = await accountAppService.withdraw(1, 100);
 
@@ -55,7 +72,7 @@ describe('Given the balance is 1.000', () => {
 
     const account = await accountAppService.withdraw(1, 1200);
 
-    expect(account.isSuccess).toBeTruthy();
+    expect(account.isFailure).toBeTruthy();
 
     const persistedAccount = await accountRepository.get(1);
     expect(persistedAccount?.saldo).toBe(2000);

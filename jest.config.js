@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { pathsToModuleNameMapper } = require('ts-jest');
-const { compilerOptions } = require('./tsconfig');
-
 module.exports = {
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
+  moduleNameMapper: {
+    '@application/(.*)': '<rootDir>/application/$1',
+    '@infra/(.*)': '<rootDir>/infra/$1',
+    '@domain/(.*)': '<rootDir>/domain/$1',
+  },
   moduleFileExtensions: ['js', 'json', 'ts'],
   rootDir: 'src',
   testRegex: '.*\\.spec\\.ts$',
